@@ -119,10 +119,14 @@ Route::get('/jobs/{id}', function ($id) {
             ],
         ];
 
-        Arr::first($jobs, fn ($job) => $job['id'] == $id);
+        $job = Arr::first($jobs, fn ($job) => $job['id'] == $id);
 
-    dd($id);
-    return view('home');
+  if($job != null){
+      
+      return view('job', ['job' => $job]);
+  }else{
+      abort(404);
+  }
 });
 
 Route::get('/contact', function () {
